@@ -1,0 +1,5 @@
+#summary If there are any issues or if you have comments, please post them on this site.
+
+==version 1.0.0==
+Initial version. 
+This project is tested with QUnit, these are located in the tests folder.

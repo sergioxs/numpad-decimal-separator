@@ -2,4 +2,4 @@
 
 ==version 1.0.0==
 Initial version. 
-This project is tested with QUnit, these are located in the tests folder.
+This project is tested with QUnit, these are located in the tests folder of the zip.

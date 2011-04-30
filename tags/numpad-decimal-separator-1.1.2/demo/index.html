@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+<head>
+	<title>numpad-decimal-separator - demo</title>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=8" />
+	<link type="text/css" rel="stylesheet" href="css/html5reset-1.6.1.css" />
+	<link type="text/css" rel="stylesheet" href="css/shCore.css"/>
+	<link type="text/css" rel="stylesheet" href="css/shThemeDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="css/nf-theme/jquery-ui-1.8.7.custom.css" />
+	<link type="text/css" rel="stylesheet" href="css/main.css" />
+	<script src="js/shCore.js"></script>
+	<script src="js/shBrushJScript.js"></script>
+	<script src="js/jquery-1.4.4.min.js"></script>
+	<script src="js/jquery.numpadDecSeparator.js"></script>
+	<script src="js/jquery-ui-1.8.7.custom.min.js"></script>
+	<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<script>
+		$(function(){
+			SyntaxHighlighter.all();
+			$("#default").numpadDecSeparator();
+			$("#space").numpadDecSeparator({separator: ' '});
+			$("#regional").numpadDecSeparator({useRegionalSettings: true});
+			$("#predefinedVariable").numpadDecSeparator({separator: 'SPACE'});
+			$(".add").numpadDecSeparator();
+			$(".unbind").numpadDecSeparator({separator: ' '});
+			$("#unbindButton").click(function(){
+				$(".unbind").numpadDecSeparator('unbind').val("").first().focus();
+			});
+			$("#version").text($.fn.numpadDecSeparator('version'));
+			$( "#home" ).button({
+				text: true,
+				icons: {
+					primary: "ui-icon-home"
+				}
+			});
+			$( "#jqHome" ).button();
+			buildDownloads();
+		});
+		function addInput(){
+			$('<input type="text" id="amount3" class="add" />').appendTo('#addInput');
+			$(".add").numpadDecSeparator();
+		}
+		function buildDownloads(){
+			$('#downloads').html(buildDownloadLinks);
+		}
+		
+		function buildDownloadLinks(){
+			return addDownloadLink('.js', '', '') + 
+					addDownloadLink('-min.js', '-min', '[yuicompressor-2.4.2]') + 
+					addDownloadLink('.zip', '-zip', '[contains whole project including tests...]') + 
+					previousVersionsLink();
+		}
+		
+		function addDownloadLink(suffix, type, extra) {
+		  return '<li><a href="http://numpad-decimal-separator.googlecode.com/files/jquery.numpadDecSeparator-' + getSuffixFile(suffix) + 
+					'"  title="Download jquery.numpadDecSeparator-' + getSuffixFile(suffix) + ' ' + extra  + '"><span class="ui-icon ui-icon-arrowreturnthick-1-s ui-corner-all li-icon"></span>version ' + 
+					$.fn.numpadDecSeparator('version') + type + '</a>';
+		}
+		function previousVersionsLink() {
+		  return '<li><a href="http://code.google.com/p/numpad-decimal-separator/downloads/list"  title="Download previous versions...">' +
+				'<span class="ui-icon ui-icon-arrowreturnthick-1-s ui-corner-all li-icon"></span>' +
+				'previous versions...</a></li>';
+		}
+		
+		function getSuffixFile(type){
+			return $.fn.numpadDecSeparator('version') + type;
+		}
+	</script>
+	<script type="text/javascript">
+	
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-20779811-4']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	
+	</script>
+</head>
+<body>
+	<div id="wrapper" >
+		<header id="logo" class="ui-helper-clearfix ui-widget-content ui-corner-top">
+			<img src="logo/logo.png"  width="50" height="50">
+			<div id="headerTitle"  >
+				<h1>numpadDecSeparator - demo</h1>
+				<h5>Numpad decimal separator plugin for jQuery - version <span id="version"></span></h5>
+			</div>
+			<nav>
+				<span id="toolbar">
+					<a id="home" href="http://code.google.com/p/numpad-decimal-separator">code google</a>
+					<a id="jqHome" href="http://plugins.jquery.com/project/numpadDecSeparator">jQuery plugin site</a>
+				</span>
+			</nav>
+		</header>
+		<div id="content" class="ui-helper-clearfix ui-widget-content">
+			<div id="maincol" class="ui-helper-clearfix">
+				<section> 
+					<header class="ui-widget-header ui-corner-all">
+						<h3>Intro</h3>
+					</header>
+					<p>With this jQuery plugin you can configure what character to use for the <span class="info" title="numeric keypad">numpad</span> decimal separator.</p>
+					<p>The examples below show you how to use the plugin.</p> 
+				</section>
+				<section> 
+					<header class="ui-widget-header ui-corner-all">
+						<h3>Example 1: Comma as numpad decimal separator - Default</h3>
+					</header>
+					<h4>Usage example</h4>
+					<pre class="brush: js;">
+					$(function(){
+					 $("#default").numpadDecSeparator();
+					});
+					...
+					&lt;input type="text" id="default" /&gt;
+					</pre>
+					<input type="text" id="default" /> 
+					<label for="default">typing '150.00' with the <span class="info" title="numeric keypad">numpad</span> will output '150,00'</label>
+				</section>
+				<section> 
+					<header class="ui-widget-header ui-corner-all">
+						<h3>Example 2: Space as numpad decimal separator</h3>
+					</header>
+					<h4>Usage example</h4>
+					<pre class="brush: js;">
+					$(function(){
+					  $("#space").numpadDecSeparator({separator: ' '});
+					});
+					...
+					&lt;input type="text" id="space" /&gt;
+					</pre>
+					<input type="text" id="space" />
+					<label for="space">typing '150.00' with the <span class="info" title="numeric keypad">numpad</span>  will output '150 00'</label>
+				</section>
+				<section> 
+					<header class="ui-widget-header ui-corner-all">
+						<h3>Example 3: Use of predefined variables</h3>
+					</header>
+					<p>As separator option you can use one of the two default predefined variables (SPACE and COMMA).</p>
+					<p>SPACE => will output space.</p>
+					<p>COMMA => will output comma.</p>
+					<h4>Usage example</h4>
+					<pre class="brush: js;">
+					$(function(){
+					  $("#predefinedVariable").numpadDecSeparator({separator: 'SPACE'});
+					  // this is the same as 
+					  // $("#predefinedVariable").numpadDecSeparator({separator: ' '});	
+					});
+					...
+					&lt;input type="text" id="predefinedVariable" /&gt;
+					</pre>
+					<input type="text" id="predefinedVariable" />
+					<label for="predefinedVariable">typing '150.00' with the <span class="info" title="numeric keypad">numpad</span>  will output '150 00'</label>
+				</section>
+				<section> 
+					<header class="ui-widget-header ui-corner-all">
+						<h3>Example 4: Use regional setting of operating system as numpad decimal separator</h3>
+					</header>
+					<p>'150.00' will output '150,00' when regional setting is dutch belgium </p>
+					<p>'150.00' will output '150.00' when regional setting is english US </p>
+					<p><strong>This only works in firefox and IE7+!</strong></p>
+					<h4>Usage example</h4>
+					<pre class="brush: js;">
+					$(function(){
+					 $("#regional").numpadDecSeparator({useRegionalSettings: true});
+					});
+					...
+					&lt;input type="text" id="regional" /&gt;
+					</pre>
+					<input type="text" id="regional" /> 
+					<label for="regional">typing '150.00' with the <span class="info" title="numeric keypad">numpad</span>  will for example output '150,00' - according to regional setting of os</label>
+				</section>
+				<section> 
+					<header class="ui-widget-header ui-corner-all">
+						<h3>Example 5: Adding fields dynamically</h3>
+					</header>
+					<p>If you use the numpadDecSeparator in a dynamic environment as an ajax environment where you add fields on the fly you can use the following example as a guide.</p>
+					<h4>Usage example</h4>
+					<pre class="brush: js;">
+					$(function(){
+					 $("#default").numpadDecSeparator();
+					});
+					function addInput(){
+					 $('&lt;input type="text" id="amount3" class="add" /&gt')
+					 		.appendTo('#addInput');
+					 $(".add").numpadDecSeparator();
+					}
+					...
+					&lt;input type="text" class="add" /&gt;
+					&lt;input type="button" value="add input" onclick="addInput();" /&gt;
+					</pre>
+					<input type="text" class="add" />
+					<input type="button" value="add input" onclick="addInput();" />
+					<div id="addInput">
+					</div>
+				</section>
+				<section> 
+					<header class="ui-widget-header ui-corner-all">
+						<h3>Example 6: Unbind</h3>
+					</header>
+					<h4>Usage example</h4>
+					<pre class="brush: js;">
+					$(function(){
+					 $(".unbind").numpadDecSeparator({separator: ' '});
+					 $("#unbindButton").click(function(){
+					   $(".unbind").numpadDecSeparator('unbind').val("").first().focus();
+					 });
+					});
+					...
+					&lt;input type="text" class="unbind" /&gt;
+					&lt;input type="button" id="unbindButton" value="unbind" /&gt;
+					</pre>
+					<p>before unbind typing '150.00' with the <span class="info" title="numeric keypad">numpad</span> will output '150 00', after unbind it will output '150.00'</p>
+					<input type="text" id="unbind" class="unbind" /><input type="text" class="unbind" />
+					<input type="button" id="unbindButton" value="unbind" />
+				</section>
+				<section> 
+					<header class="ui-widget-header ui-corner-all">
+						<h3>Example 7: Overriding default options</h3>
+					</header>
+					<h4>Usage examples</h4>
+					<pre class="brush: js;">
+					//override default separator
+					$.fn.numpadDecSeparator('mergeDefaults', {separator: "SPACE"});
+					//or
+					//override default useRegionalSettings
+					$.fn.numpadDecSeparator('mergeDefaults', {useRegionalSettings: true});
+					//or
+					//override default predefinedVariables
+					$.fn.numpadDecSeparator('mergeDefaults', {predefinedVariables: {APOSTROPHE: "'"}});
+					//or
+					//override all defaults
+					var newDefaults = {
+						separator : " ",
+						useRegionalSettings : true,
+						predefinedVariables: {SPACE: " "}
+					 };
+					 $.fn.numpadDecSeparator('mergeDefaults', newDefaults);
+					</pre>
+				</section>				
+				<section id="issues"> 
+					<header class="ui-widget-header ui-corner-all">
+						<h3>Issues, enhancement requests or comments?</h3>
+					</header>
+					<h4>Issues - enhancement requests</h4>
+					<p>If you find an issue or if you have an enhancement request, please post them on <a href="http://code.google.com/p/numpad-decimal-separator/issues/list">http://code.google.com/p/numpad-decimal-separator/issues/list</a>.</p>
+					<h4>Comments</h4>
+					<p>If you have comments, feel free to <a href="mailto:nuyensgert@gmail.com?SUBJECT=numpadDecSeparator">contact me</a>!</p>
+				</section>
+			</div>
+			<nav id="nav">
+				<section id="download" class="ui-widget-content ui-corner-all">
+					<header class="ui-widget-header ui-corner-top">
+						<h3>Download</h3>
+					</header>
+					<ul id="downloads">
+					</ul>
+				</section>
+				<section id="donate" class="ui-widget-content ui-corner-all">
+					<header class="ui-widget-header ui-corner-top">
+						<h3>Donate</h3>
+					</header>
+					<p><strong>You like this plugin?</strong></p>
+					<p><strong>Please feel free to donate any amount you like!</strong></p>
+					<p>This will help to cover the costs of development and hosting.</p>
+					<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TEDR86ZYP3UR8&lc=BE&item_name=numpad%2ddecimal%2dseparator&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"><img src="https://www.paypal.com/en_US/i/btn/x-click-but04.gif"/></a>
+				</section>
+			</nav>
+		</div>
+		<footer id="footer" class="ui-widget-content ui-corner-bottom">
+			<p>This plugin is written according to TDD (test-driven development) and is tested with QUnit and JsTestDriver.</p>
+			<p>It is build with maven and eclipse.</p>
+			<nav>
+				<a href="http://code.google.com/p/numpad-decimal-separator">home @ code google</a>
+				<span> - </span>
+				<a href="http://plugins.jquery.com/project/numpadDecSeparator">numpadDecSeparator @ jQuery plugin site</a>
+				<span> - </span>
+				<a href="mailto:nuyensgert@gmail.com?SUBJECT=numpadDecSeparator">contact me</a>
+			</nav>
+		</footer>
+	</div>
+</body>
+</html>

@@ -22,7 +22,7 @@ e.fn.numpadDecSeparator.defaults={separator:",",useRegionalSettings:false,predef
 function c(){var h=1.1;
 h=h.toLocaleString().substring(1,2);
 return h
-}function b(h){return e.browser.opera?78==h:110==h
+}function b(h){return /opera/.test(navigator.userAgent.toLowerCase())?78==h:110==h
 }function d(h){return h.useRegionalSettings?c():g(h)
 }function g(h){return h.predefinedVariables[h.separator]?h.predefinedVariables[h.separator]:h.separator
 }function f(h,j){var k,i;

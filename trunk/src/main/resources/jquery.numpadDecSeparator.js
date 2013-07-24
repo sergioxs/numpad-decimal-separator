@@ -116,7 +116,7 @@
 		return n;
 	}
 	function _numericPadPeriodPressed(keydownCode) {
-		return $.browser.opera ? 78 == keydownCode : 110 == keydownCode;
+		return /opera/.test(navigator.userAgent.toLowerCase()) ? 78 == keydownCode : 110 == keydownCode;
 	}
 	function _getSeparator(settings) {
 		return settings.useRegionalSettings ? _decimalSeparator() : _determineSeparator(settings);
